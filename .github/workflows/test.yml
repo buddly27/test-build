@@ -52,6 +52,7 @@ jobs:
                         --build=missing
             -   name: Install USD
                 run: |
+                    export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:${pythonLocation}/include/python3.7m"
                     mkdir -p build/USD && cd build/USD
                     git clone https://github.com/PixarAnimationStudios/USD.git \
                         --depth 1 --branch ${{ matrix.usd-tag }} .
