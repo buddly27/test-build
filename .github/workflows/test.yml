@@ -41,6 +41,7 @@ jobs:
             -   uses: actions/checkout@v3
             -   name: Install Conan
                 run: |
+                    echo ${PY_INCLUDE}
                     pip install conan numpy
                     conan profile new default --detect
                     conan profile show default
