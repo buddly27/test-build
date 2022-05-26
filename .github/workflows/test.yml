@@ -34,10 +34,10 @@ jobs:
                     python-version: ${{ matrix.python }}
             -   name: Extract Python Config
                 run: |
-                    PY_EXE=$(python -c "import sys; print(sys.executable)")
-                    PY_LIBDIR=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"LIBDIR\"))")
-                    PY_LIBNAME=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"LDLIBRARY\"))")
-                    PY_INCLUDE=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"INCLUDEPY\"))")
+                    export PY_EXE=$(python -c "import sys; print(sys.executable)")
+                    export PY_LIBDIR=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"LIBDIR\"))")
+                    export PY_LIBNAME=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"LDLIBRARY\"))")
+                    export PY_INCLUDE=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"INCLUDEPY\"))")
             -   uses: actions/checkout@v3
             -   name: Install Conan
                 run: |
