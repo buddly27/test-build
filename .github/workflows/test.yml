@@ -32,11 +32,15 @@ jobs:
                 uses: actions/setup-python@v2
                 with:
                     python-version: ${{ matrix.python }}
+            -   name: Extract Python Config
+                run: |
+                    PY_EXE=$(python -c "import sys; print(sys.executable)")
+                    PY_LIBDIR=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"LIBDIR\"))")
+                    PY_LIBNAME=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"LDLIBRARY\"))")
+                    PY_INCLUDE=$(python -c "import sysconfig as sc; print(sc.get_config_vars(\"INCLUDEPY\"))")
             -   uses: actions/checkout@v3
             -   name: Install Conan
                 run: |
-                    ls -l ${pythonLocation}
-                    ls -l "${pythonLocation}/include"
                     pip install conan numpy
                     conan profile new default --detect
                     conan profile show default
@@ -52,15 +56,15 @@ jobs:
                         --build=missing
             -   name: Install USD
                 run: |
-                    export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:${pythonLocation}/include/python3.7m"
                     mkdir -p build/USD && cd build/USD
                     git clone https://github.com/PixarAnimationStudios/USD.git \
                         --depth 1 --branch ${{ matrix.usd-tag }} .
                     cmake \
                         -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)/.." \
                         -DPXR_BUILD_IMAGING=False \
-                        -DPYTHON_EXECUTABLE="${pythonLocation}/bin/python" \
-                        -DPYTHON_INCLUDE_DIR="${pythonLocation}/include" \
+                        -DPYTHON_EXECUTABLE="${PY_EXE}" \
+                        -DPYTHON_LIBRARY="${PY_LIBDIR}/${PY_LIBNAME}" \
+                        -DPYTHON_INCLUDE_DIR="${PY_INCLUDE}" \
                         -DCMAKE_INSTALL_PREFIX=/usr \
                         .
                     make
