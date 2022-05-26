@@ -56,6 +56,8 @@ jobs:
                     cmake \
                         -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)/.." \
                         -DPXR_BUILD_IMAGING=False \
+                        -DPYTHON_EXECUTABLE="${pythonLocation}/bin/python" \
+                        -DPYTHON_INCLUDE_DIR="${pythonLocation}/include" \
                         -DCMAKE_INSTALL_PREFIX=/usr \
                         .
                     make
