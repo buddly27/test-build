@@ -38,8 +38,13 @@ jobs:
             -   name: Install Boost + TBB
                 run: |
                     mkdir -p build && cd build
-                    conan install boost/1.70.0@ -o boost:without_python=False -g cmake_find_package
-                    conan install tbb/2020.3@ -g cmake_find_package
+                    conan install boost/1.70.0@ \
+                        --options=boost:without_python=False \
+                        --generator=cmake_find_package \
+                        --build=missing
+                    conan install tbb/2020.3@ \
+                        --generator=cmake_find_package \
+                        --build=missing
             -   name: Install USD
                 run: |
                     mkdir -p build/USD && cd build/USD
