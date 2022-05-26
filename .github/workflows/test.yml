@@ -36,6 +36,7 @@ jobs:
             -   name: Install Conan
                 run: |
                     pip install conan
+                    conan profile new default --detect
                     conan profile show default
             -   name: Install Boost + TBB
                 run: |
