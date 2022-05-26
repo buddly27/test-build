@@ -42,6 +42,7 @@ jobs:
                 run: |
                     mkdir -p build && cd build
                     conan install boost/1.70.0@ \
+                        --options=boost:shared=True \
                         --options=boost:without_python=False \
                         --generator=cmake_find_package \
                         --build=missing
