@@ -34,13 +34,14 @@ jobs:
                     python-version: ${{ matrix.python }}
             -   uses: actions/checkout@v3
             -   name: Install Conan
-                run: pip install conan
+                run: |
+                    pip install conan
+                    conan profile show default
             -   name: Install Boost + TBB
                 run: |
                     mkdir -p build && cd build
                     conan install boost/1.70.0@ \
                         --options=boost:without_python=False \
-                        --options=boost:without_numpy=True \
                         --generator=cmake_find_package \
                         --build=missing
                     conan install tbb/2020.3@ \
