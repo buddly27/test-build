@@ -55,11 +55,11 @@ jobs:
                         --depth 1 --branch ${{ matrix.usd-tag }} .
                     PY_EXE=$(python -c "import sys; print(sys.executable)")
                     PY_LIBDIR=$(python -c "import sysconfig as sc; \
-                        print(sc.get_config_vars(\"LIBDIR\"))")
+                        print(sc.get_config_var(\"LIBDIR\"))")
                     PY_LIBNAME=$(python -c "import sysconfig as sc; \
-                        print(sc.get_config_vars(\"LDLIBRARY\"))")
+                        print(sc.get_config_var(\"LDLIBRARY\"))")
                     PY_INCLUDE=$(python -c "import sysconfig as sc; \
-                        print(sc.get_config_vars(\"INCLUDEPY\"))")
+                        print(sc.get_config_var(\"INCLUDEPY\"))")
                     cmake \
                         -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)/.." \
                         -DPXR_BUILD_IMAGING=False \
