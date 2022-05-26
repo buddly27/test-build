@@ -57,7 +57,9 @@ jobs:
                         -DCMAKE_MODULE_PATH:FILEPATH="(pwd)/.." \
                         -DPXR_BUILD_IMAGING=False \
                         -DCMAKE_INSTALL_PREFIX=/usr \
-                        ..
+                        .
+                    make
+                    make install
             -   name: Build
                 run: |
                     cd build
