@@ -65,6 +65,7 @@ jobs:
                         -DPXR_BUILD_IMAGING=False \
                         -DPYTHON_EXECUTABLE="${PY_EXE}" \
                         -DPYTHON_LIBRARY="${PY_LIBDIR}/${PY_LIBNAME}" \
+                        -DPYTHON_INCLUDE_DIR="${PY_INCLUDE}" \
                         -DCMAKE_INSTALL_PREFIX=/usr \
                         .
                     make
