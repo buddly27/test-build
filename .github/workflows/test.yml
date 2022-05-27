@@ -8,7 +8,7 @@ on:
 
 jobs:
     Test-Linux:
-        runs-on: windows-latest
+        runs-on: macos-latest
         timeout-minutes: 150
 
         strategy:
