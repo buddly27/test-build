@@ -8,7 +8,7 @@ on:
 
 jobs:
     Test-Linux:
-        runs-on: ubuntu-latest
+        runs-on: windows-latest
         timeout-minutes: 150
 
         strategy:
@@ -55,6 +55,8 @@ jobs:
                     mkdir -p USD/build && cd USD/build
                     git clone https://github.com/PixarAnimationStudios/USD.git \
                         --depth 1 --branch ${{ matrix.usd-tag }} .
+                    NUM_JOBS=$(python -c "import multiprocessing; \
+                        print(multiprocessing.cpu_count())")
                     PY_EXE=$(python -c "import sys; print(sys.executable)")
                     PY_LIBDIR=$(python -c "import sysconfig as sc; \
                         print(sc.get_config_var(\"LIBDIR\"))")
@@ -76,7 +78,7 @@ jobs:
                         -DPXR_ENABLE_PTEX_SUPPORT=False \
                         -DCMAKE_INSTALL_PREFIX="$(pwd)/.." \
                         .
-                    cmake --build . --target install
+                    cmake --build . --target install -- -j ${NUM_JOBS}
             -   name: Build
                 run: |
                     cd build
