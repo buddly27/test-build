@@ -76,7 +76,7 @@ jobs:
                         -DPXR_ENABLE_PTEX_SUPPORT=False \
                         -DCMAKE_INSTALL_PREFIX=/usr \
                         .
-                    cmake --build . --target install -- -j 24
+                    cmake --build . --target install
             -   name: Build
                 run: |
                     cd build
